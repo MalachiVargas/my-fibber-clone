@@ -35,7 +35,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       tweets
-    },
-    revalidate: 10 // In seconds
+    }
   }
 }
