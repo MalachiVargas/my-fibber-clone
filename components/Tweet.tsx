@@ -42,7 +42,7 @@ function Tweet({ tweet }: TweetProps) {
     }
 
     const result = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/addComment`,
+      `${process.env.NEXT_PUBLIC_BASE_URL as string}/api/addComment`,
       {
         body: JSON.stringify(comment),
         method: 'POST'

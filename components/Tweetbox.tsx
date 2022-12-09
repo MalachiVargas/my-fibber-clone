@@ -45,7 +45,7 @@ function Tweetbox({ setTweets }: TweetBoxProps) {
     }
 
     const result = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/addTweet`,
+      `${process.env.NEXT_PUBLIC_BASE_URL as string}/api/addTweet`,
       {
         body: JSON.stringify(tweetInfo),
         method: 'POST'
