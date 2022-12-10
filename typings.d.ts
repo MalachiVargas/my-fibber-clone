@@ -1,6 +1,6 @@
 export interface Tweet extends TweetBody {
-  _id: string
-  _createdAt: string
+  id: string
+  createdAt: string
 }
 
 export type TweetBody = {
@@ -11,14 +11,13 @@ export type TweetBody = {
 }
 
 export interface Comment extends CommentBody {
-  _id: string
-  _createdAt: string
-  tweet_ref: string
+  id: string
+  createdAt: string
 }
 
 export type CommentBody = {
   comment: string
   username: string
   profileImg: string
-  tweetId: string
+  tweetRef: string
 }

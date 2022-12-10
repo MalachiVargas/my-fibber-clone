@@ -21,7 +21,7 @@ function Tweet({ tweet }: TweetProps) {
   const [input, setInput] = useState<string>('')
 
   const refreshComments = async () => {
-    const comments: Comment[] = await fetchComments(tweet._id)
+    const comments: Comment[] = await fetchComments(tweet.id)
     setComments(comments)
   }
 
@@ -36,15 +36,19 @@ function Tweet({ tweet }: TweetProps) {
 
     const comment: CommentBody = {
       comment: input,
-      tweetId: tweet._id,
+      tweetRef: tweet.id,
       username: session?.user?.name || 'Uknown User',
       profileImg: session?.user?.image || 'https://links.papareact.com/gll'
     }
 
     const result = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/addComment`,
+
       {
         body: JSON.stringify(comment),
+        headers: {
+          'Content-Type': 'application/json'
+        },
         method: 'POST'
       }
     )
@@ -80,7 +84,8 @@ function Tweet({ tweet }: TweetProps) {
 
             <TimeAgo
               className="text-sm text-gray-500"
-              date={tweet._createdAt}
+              date={tweet.createdAt}
+              now={() => Date.now()}
             />
           </div>
 
@@ -137,7 +142,7 @@ function Tweet({ tweet }: TweetProps) {
       {comments?.length > 0 && (
         <div className="my-2 mt-5 max-h-44 space-y-5 overflow-y-scroll border-t border-gray-100 p-5">
           {comments.map((comment) => (
-            <div key={comment._id} className="relative flex space-x-2">
+            <div key={comment.id} className="relative flex space-x-2">
               <hr className="absolute left-5 top-10 h-8 border-x  border-twitter/10" />
               <img
                 src={comment.profileImg}
@@ -152,7 +157,8 @@ function Tweet({ tweet }: TweetProps) {
                   </p>
                   <TimeAgo
                     className="text-sm text-gray-500"
-                    date={comment._createdAt}
+                    date={comment.createdAt}
+                    now={() => Date.now()}
                   />
                 </div>
                 <p>{comment.comment}</p>

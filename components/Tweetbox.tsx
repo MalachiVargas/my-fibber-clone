@@ -48,6 +48,9 @@ function Tweetbox({ setTweets }: TweetBoxProps) {
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/addTweet`,
       {
         body: JSON.stringify(tweetInfo),
+        headers: {
+          'Content-Type': 'application/json'
+        },
         method: 'POST'
       }
     )
@@ -106,7 +109,7 @@ function Tweetbox({ setTweets }: TweetBoxProps) {
           </div>
 
           {imageUrlBoxIsOpen && (
-            <form className="rounded-lf mt-5 flex bg-twitter/80 py-2 px-4">
+            <div className="rounded-lf mt-5 flex bg-twitter/80 py-2 px-4">
               <input
                 ref={imageInputRef}
                 className="flex-1 bg-transparent p-2 text-white outline-none placeholder:text-white"
@@ -119,7 +122,7 @@ function Tweetbox({ setTweets }: TweetBoxProps) {
               >
                 Add Image
               </button>
-            </form>
+            </div>
           )}
           {image && (
             <img
